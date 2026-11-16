@@ -1,0 +1,30 @@
+{
+  "name": "nextgen-ai-platform",
+  "version": "2.5.0",
+  "description": "Plataforma Educativa de Alto Impacto sobre Optimización Tokenómica, Arquitectura de Agentes y Co-Desarrollo de Software con IA",
+  "main": "index.html",
+  "scripts": {
+    "api": "npx json-server --watch db.json --port 3000",
+    "start": "npx json-server --watch db.json --port 3000",
+    "api:python": "python server/mock_api.py",
+    "dev:python": "python -m http.server 8080"
+  },
+  "keywords": [
+    "nextgen",
+    "ai-agent-architecture",
+    "tokenomics",
+    "ast-pruning",
+    "mcp-protocol",
+    "gsap",
+    "lenis",
+    "apple-scrubbing",
+    "json-server"
+  ],
+  "author": "NextGen AI Architecture Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
+

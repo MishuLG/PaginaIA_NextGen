@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>NextGen // Arquitectura de Agentes & Tokenomics de Nueva Generación</title>
+  <meta name="description" content="Plataforma interactiva de alta fidelidad técnica sobre Optimización Tokenómica, Arquitectura de Agentes y Co-desarrollo de Software con IA en Ingeniería de Sistemas.">
+  
+  <!-- Tailwind CSS via official CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          screens: {
+            'xs': '420px'
+          },
+          colors: {
+            brand: {
+              dark: '#06080d',
+              slate: '#0f172a',
+              cyan: '#00f0ff',
+              violet: '#8b5cf6',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="bg-[#06080d] text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+
+  <!-- Ambient Glow Orbs for Parallax Depth (Optimized hardware layers) -->
+  <div class="parallax-orb glow-orb-cyan top-20 -left-40 hidden sm:block" data-speed="0.25"></div>
+  <div class="parallax-orb glow-orb-violet top-[900px] -right-40 hidden sm:block" data-speed="-0.3"></div>
+  <div class="parallax-orb glow-orb-cyan top-[2400px] left-1/4 hidden sm:block" data-speed="0.2"></div>
+
+  <!-- Global Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-2.5 max-w-[calc(100vw-2rem)] sm:max-w-md pointer-events-auto"></div>
+
+  <!-- ==================== HEADER & NAVBAR (FULLY RESPONSIVE) ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl bg-[#06080d]/85 border-b border-white/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Logo & System Spec -->
+      <a href="#" class="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-cyan-500/50 rounded-lg p-1">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-violet-600 to-emerald-400 p-[1.5px] transition-transform duration-300 group-hover:scale-105">
+          <div class="w-full h-full bg-[#06080d] rounded-[10px] flex items-center justify-center">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 transition-colors group-hover:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <span class="text-base sm:text-lg font-bold tracking-tight text-white font-mono">Next<span class="text-cyan-400">Gen</span></span>
+            <span class="px-1.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-medium bg-cyan-950/70 border border-cyan-500/30 text-cyan-300">v2.5</span>
+          </div>
+          <p class="hidden xs:block text-[9px] sm:text-[10px] font-mono text-slate-400 tracking-wider">AI SYSTEMS ARCHITECTURE</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="#tokenomics" class="hover:text-cyan-400 transition-colors duration-200">Tokenómica</a>
+        <a href="#context-window" class="hover:text-cyan-400 transition-colors duration-200">AST Pruning</a>
+        <a href="#agent-orchestration" class="hover:text-cyan-400 transition-colors duration-200">Orquestación MCP</a>
+        <a href="#interactive-lab" class="hover:text-cyan-400 transition-colors duration-200">Laboratorio</a>
+        <a href="#community-plaza" class="hover:text-cyan-400 transition-colors duration-200">Plaza de Opinión</a>
+      </nav>
+
+      <!-- Action Buttons & Mobile Hamburger Toggle -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Guest View (Not logged in) -->
+        <div id="navbar-auth-guest" class="flex items-center gap-2">
+          <button id="btn-open-login" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium border border-white/10 hover:border-cyan-500/40 bg-white/5 hover:bg-cyan-500/10 text-white hover:text-cyan-300 transition-all duration-300 shadow-sm flex items-center gap-1.5 sm:gap-2">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+            <span class="whitespace-nowrap">Iniciar Sesión</span>
+          </button>
+        </div>
+
+        <!-- Authenticated User View (Active Session) -->
+        <div id="navbar-auth-user" class="hidden flex items-center gap-2 sm:gap-3">
+          <div class="flex items-center gap-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30">
+            <img id="navbar-user-avatar" src="" alt="Avatar" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover ring-1 ring-cyan-400">
+            <div class="text-left hidden sm:block">
+              <div id="navbar-user-name" class="text-xs font-semibold text-white leading-tight">Usuario</div>
+              <div id="navbar-user-role" class="text-[9px] font-mono text-cyan-400 leading-tight">Rol</div>
+            </div>
+          </div>
+          <button id="btn-logout" title="Cerrar Sesión" class="p-1.5 sm:p-2 rounded-xl border border-white/10 hover:border-red-500/40 hover:bg-red-500/10 text-slate-400 hover:text-red-400 transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="btn-mobile-menu-toggle" aria-label="Abrir Menú de Navegación" class="lg:hidden p-2 rounded-xl border border-white/10 hover:border-cyan-500/40 bg-white/5 text-slate-300 hover:text-white transition-colors">
+          <svg id="icon-mobile-menu-open" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-mobile-menu-close" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu-drawer" class="lg:hidden hidden border-b border-white/10 bg-[#06080d]/95 backdrop-blur-2xl px-5 py-4 space-y-3 font-mono text-xs sm:text-sm">
+      <a href="#tokenomics" class="mobile-nav-link block text-slate-300 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">01 // AI Tokenomics &amp; Costos</a>
+      <a href="#context-window" class="mobile-nav-link block text-slate-300 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">02 // T-Zero AST Pruning</a>
+      <a href="#agent-orchestration" class="mobile-nav-link block text-slate-300 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">03 // Orquestación MCP</a>
+      <a href="#interactive-lab" class="mobile-nav-link block text-slate-300 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">04 // Laboratorio &amp; Calculadora</a>
+      <a href="#community-plaza" class="mobile-nav-link block text-slate-300 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">05 // Plaza de Opinión</a>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="relative z-10 pt-16 sm:pt-20">
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- 1. HERO CINEMÁTICO (MOBILE ADAPTED)                          -->
+    <!-- ------------------------------------------------------------ -->
+    <section class="relative min-h-[85vh] sm:min-h-[92vh] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-8 pb-14 sm:pt-12 sm:pb-16">
+      <div class="max-w-5xl mx-auto text-center relative z-10">
+        
+        <!-- Live Architecture Badge (Wraps gracefully on narrow phones) -->
+        <div id="hero-badge" class="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-[10px] sm:text-xs font-mono text-cyan-300 mb-6 sm:mb-8 backdrop-blur-md shadow-lg shadow-cyan-500/10 max-w-full">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span>ESTÁNDAR DE CO-DESARROLLO 2026</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-emerald-400 font-semibold">-94.4% TOKENS</span>
+        </div>
+
+        <!-- Cinematic Title Lines -->
+        <h1 class="text-3xl xs:text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-[1.15] sm:leading-[1.1] mb-5 sm:mb-6">
+          <span class="hero-title-line block text-white">La Nueva Era del Co-Desarrollo:</span>
+          <span class="hero-title-line block shimmer-text-cyan mt-1">Tokenómica &amp; Agentes Autónomos</span>
+        </h1>
+
+        <!-- High-Precision Subtitle -->
+        <p id="hero-description" class="max-w-3xl mx-auto text-sm sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed mb-8 sm:mb-10 px-2 sm:px-0">
+          Aprende los principios arquitectónicos fundamentales para integrar Inteligencia Artificial en el ciclo de vida del software profesional: estratificación de contexto, poda semántica AST T-Zero y orquestación con el protocolo MCP.
+        </p>
+
+        <!-- CTA Action Hub -->
+        <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full max-w-md sm:max-w-none mx-auto">
+          <a href="#apple-showcase" class="hero-cta-btn px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold text-xs sm:text-sm bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 transition-all duration-300 shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2">
+            <span>Iniciar Exploración Inmersiva</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+
+          <a href="#interactive-lab" class="hero-cta-btn px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl font-semibold text-xs sm:text-sm bg-slate-900/90 hover:bg-slate-800 border border-white/10 hover:border-cyan-500/40 text-white transition-all duration-300 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
+            <span>Laboratorio &amp; Calculadora</span>
+          </a>
+
+          <button id="hero-btn-login" class="hero-cta-btn px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl font-semibold text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>Portal de Acceso</span>
+          </button>
+        </div>
+
+        <!-- Hero Telemetry HUD Panel (2 columns on mobile, 4 on desktop) -->
+        <div id="hero-telemetry-hud" class="max-w-4xl mx-auto p-3 sm:p-5 rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl shadow-2xl grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 text-left font-mono">
+          <div class="p-2.5 sm:p-3 rounded-xl bg-black/40 border border-white/5">
+            <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-wider">Latencia Inferencia</div>
+            <div id="hud-metric-latency" class="text-base sm:text-xl font-bold text-cyan-400 mt-0.5 sm:mt-1">14ms</div>
+            <div class="text-[9px] sm:text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
+              <span>▲</span> L1 Cache
+            </div>
+          </div>
+
+          <div class="p-2.5 sm:p-3 rounded-xl bg-black/40 border border-white/5">
+            <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-wider">Quema Tokens</div>
+            <div id="hud-metric-tokens" class="text-base sm:text-xl font-bold text-white mt-0.5 sm:mt-1">620 tok/s</div>
+            <div class="text-[9px] sm:text-[10px] text-slate-400 mt-0.5">Acotada</div>
+          </div>
+
+          <div class="p-2.5 sm:p-3 rounded-xl bg-black/40 border border-white/5">
+            <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-wider">Compresión AST</div>
+            <div id="hud-metric-compression" class="text-base sm:text-xl font-bold text-emerald-400 mt-0.5 sm:mt-1">-94.4%</div>
+            <div class="text-[9px] sm:text-[10px] text-emerald-400 mt-0.5">T-Zero v2</div>
+          </div>
+
+          <div class="p-2.5 sm:p-3 rounded-xl bg-black/40 border border-white/5">
+            <div class="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-wider">Protocolo MCP</div>
+            <div class="text-base sm:text-xl font-bold text-violet-400 mt-0.5 sm:mt-1 flex items-center gap-1.5 sm:gap-2">
+              <span>Activo</span>
+              <span id="hud-metric-heartbeat" class="w-2 h-2 rounded-full bg-violet-400 animate-ping"></span>
+            </div>
+            <div class="text-[9px] sm:text-[10px] text-violet-300 mt-0.5">StdIO / SSE</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- 2. SECUENCIA CANVAS SCRUBBING ESTILO APPLE HARDWARE SHOWCASE -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="apple-showcase" class="relative">
+      
+      <!-- Pinning container: 350vh total scroll distance for smooth scrubbing -->
+      <div id="apple-canvas-container" class="relative w-full h-[350vh]">
+        
+        <!-- Sticky Viewport with dvh support for mobile address bars -->
+        <div class="canvas-sticky-viewport">
+          
+          <!-- Canvas 2D Surface (Retina / HiDPI enabled, dynamic cover fit) -->
+          <canvas id="apple-scrub-canvas" class="w-full h-full block" aria-label="Visualizador cinemático 2D del motor de arquitectura NextGen"></canvas>
+
+          <!-- Preloader / Compilation Progress Bar (Apple-style sleekness) -->
+          <div id="canvas-preloader" class="absolute inset-0 bg-[#06080d]/90 backdrop-blur-md flex flex-col items-center justify-center z-30 transition-opacity duration-500 p-4">
+            <div class="w-full max-w-xs text-center font-mono">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 mx-auto mb-3 sm:mb-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+              <div id="canvas-preloader-text" class="text-[11px] sm:text-xs text-cyan-300 tracking-wider mb-2">COMPILANDO SECUENCIA 2D...</div>
+              <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+                <div id="canvas-preloader-bar" class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 w-0 transition-all duration-150"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Staggered Scrubbing Narrative Overlays (Mobile Optimized Sizes) -->
+          <div class="absolute inset-0 pointer-events-none flex items-center justify-center p-3 sm:p-6 z-20">
+            <div class="max-w-xl w-full">
+
+              <!-- Phase 1 Card (Scrub 0.02 - 0.26) -->
+              <div id="scrub-card-1" class="transition-all duration-500 opacity-0 translate-y-8 pointer-events-none glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-red-500/30 shadow-2xl">
+                <div class="flex items-center gap-1.5 sm:gap-2 text-red-400 text-[10px] sm:text-xs font-mono mb-1.5 sm:mb-2 uppercase tracking-wider">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+                  <span>Fase 01 // Diagnóstico Crítico</span>
+                </div>
+                <h3 class="text-lg sm:text-2xl font-bold text-white mb-1.5 sm:mb-3">La Crisis de la Tokenómica Monolítica</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                  Inyectar repositorios completos en prompts satura la ventana de atención, dispara los costos en más de un 1,800% y genera el fenómeno de "Time-Warp", provocando alucinaciones sintácticas.
+                </p>
+                <div class="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-[10px] sm:text-xs font-mono text-red-300">
+                  <span>Dilución de Atención: 89%</span>
+                  <span>Latencia: 4.8s</span>
+                </div>
+              </div>
+
+              <!-- Phase 2 Card (Scrub 0.28 - 0.52) -->
+              <div id="scrub-card-2" class="transition-all duration-500 opacity-0 translate-y-8 pointer-events-none glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-cyan-500/30 shadow-2xl">
+                <div class="flex items-center gap-1.5 sm:gap-2 text-cyan-400 text-[10px] sm:text-xs font-mono mb-1.5 sm:mb-2 uppercase tracking-wider">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                  <span>Fase 02 // Poda Quirúrgica</span>
+                </div>
+                <h3 class="text-lg sm:text-2xl font-bold text-white mb-1.5 sm:mb-3">T-Zero AST Pruner: Reducción del -94.4%</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                  El árbol de sintaxis abstracta se analiza localmente antes de invocar al modelo. Se eliminan decoradores muertos, comentarios e implementaciones privadas, preservando contratos tipados.
+                </p>
+                <div class="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-[10px] sm:text-xs font-mono text-cyan-300">
+                  <span>Tokens Reducidos: -94.4%</span>
+                  <span>Precisión: 99.8%</span>
+                </div>
+              </div>
+
+              <!-- Phase 3 Card (Scrub 0.54 - 0.76) -->
+              <div id="scrub-card-3" class="transition-all duration-500 opacity-0 translate-y-8 pointer-events-none glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-violet-500/30 shadow-2xl">
+                <div class="flex items-center gap-1.5 sm:gap-2 text-violet-400 text-[10px] sm:text-xs font-mono mb-1.5 sm:mb-2 uppercase tracking-wider">
+                  <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+                  <span>Fase 03 // Arquitectura en Capas</span>
+                </div>
+                <h3 class="text-lg sm:text-2xl font-bold text-white mb-1.5 sm:mb-3">Estratificación L1/L2/L3 &amp; Esquemas Contratados</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                  El contexto se segmenta: L1 Invariantes, L2 Esquemas AST Dinámicos y L3 RAG Efímero. Las salidas se fuerzan con esquemas Zod o Pydantic, garantizando respuestas deterministas.
+                </p>
+                <div class="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-[10px] sm:text-xs font-mono text-violet-300">
+                  <span>Esquemas: Zod / Pydantic</span>
+                  <span>Fuga Cero (Zero-Leak)</span>
+                </div>
+              </div>
+
+              <!-- Phase 4 Card (Scrub 0.78 - 0.98) -->
+              <div id="scrub-card-4" class="transition-all duration-500 opacity-0 translate-y-8 pointer-events-none glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-emerald-500/30 shadow-2xl">
+                <div class="flex items-center gap-1.5 sm:gap-2 text-emerald-400 text-[10px] sm:text-xs font-mono mb-1.5 sm:mb-2 uppercase tracking-wider">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Fase 04 // Orquestación Autónoma</span>
+                </div>
+                <h3 class="text-lg sm:text-2xl font-bold text-white mb-1.5 sm:mb-3">Red de Agentes MCP &amp; Zero Ghost Reverts</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                  Los agentes se comunican a través de servidores MCP seguros. Los bloques de código se validan mediante sumas hash SHA-256 idempotentes, erradicando reversiones accidentales de código.
+                </p>
+                <div class="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-[10px] sm:text-xs font-mono text-emerald-300">
+                  <span>Ghost Reverts: 0.00%</span>
+                  <span>Latencia: 12ms</span>
+                </div>
+              </div>
+
+              <!-- Accessibility Fallback Card -->
+              <div id="scrub-reduced-motion-card" class="hidden glass-panel p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-cyan-500/40 shadow-2xl">
+                <h3 class="text-lg sm:text-2xl font-bold text-white mb-2">Arquitectura NextGen (Modo Accesible)</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3">
+                  Se ha detectado tu preferencia de movimiento reducido. La secuencia interactiva se mantiene fija en el fotograma de equilibrio arquitectónico.
+                </p>
+                <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 font-mono text-[10px] sm:text-xs text-cyan-300">
+                  ✓ T-Zero AST Pruning (-94.4%) • ✓ Context Stratification • ✓ MCP Zero-Leak Protocol
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- 3. SECCIÓN: PRINCIPIOS DE AI TOKENOMICS                      -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="tokenomics" class="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="section-header max-w-3xl mb-10 sm:mb-16">
+          <div class="section-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-[10px] sm:text-xs font-mono text-cyan-400 mb-2.5">
+            01 // FUNDAMENTOS DE EFICIENCIA
+          </div>
+          <h2 class="section-title text-2xl xs:text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Principios de AI Tokenomics
+          </h2>
+          <p class="section-desc mt-3 text-sm sm:text-lg text-slate-400 leading-relaxed">
+            La ingeniería de software moderna no consiste en enviar la mayor cantidad de código al modelo, sino en estructurar quirúrgicamente la transferencia de conocimiento.
+          </p>
+        </div>
+
+        <!-- 4 Core Pillars Grid -->
+        <div class="stagger-cards-grid grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 mb-10 sm:mb-16">
+
+          <!-- Pillar 1 -->
+          <div class="stagger-card interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-4 sm:mb-6">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Estratificación de Contexto (Context Tiering)</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+              En lugar de una masa indiferenciada de texto, el contexto se segrega en tres niveles de persistencia y coste:
+            </p>
+            <ul class="space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-violet-400 font-bold">L1:</span>
+                <span>System Invariants (Reglas de negocio permanentes, contratos inmutables).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-cyan-400 font-bold">L2:</span>
+                <span>Dynamic AST Schemas (Esquemas de interfaces resueltos bajo demanda).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">L3:</span>
+                <span>Ephemeral RAG Memory (Historial reciente y deltas de cambios volátiles).</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="stagger-card interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4 sm:mb-6">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Arquitectura "Fetch-Once / Process Locally"</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+              Los LLMs no deben actuar como compiladores o analizadores sintácticos. Las herramientas locales resuelven referencias y tipos estáticos primero:
+            </p>
+            <ul class="space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">▶</span>
+                <span>Resolución local de imports mediante workers nativos sin costo de tokens.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">▶</span>
+                <span>Solo se transmite al modelo el grafo de impacto semántico e interfaces afectadas.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">▶</span>
+                <span>Ahorro del 70% al 85% de bandwidth e inferencia innecesaria.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="stagger-card interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-4 sm:mb-6">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Esquemas Contratados (Contracted Schemas)</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+              Erradica la ambigüedad obligando al agente a generar payloads que cumplan especificaciones formales estrictas:
+            </p>
+            <ul class="space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-violet-400 font-bold">▶</span>
+                <span>Gramáticas BNF forzadas a nivel de decodificador (Logit Bias y JSON Schema).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-violet-400 font-bold">▶</span>
+                <span>Validación con Zod (TypeScript) o Pydantic (Python) en tiempo de ingestión.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-violet-400 font-bold">▶</span>
+                <span>Cero desperdicio de tokens en introducciones conversacionales superfluas.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="stagger-card interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4 sm:mb-6">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Fallback Chains &amp; Enrutamiento</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+              Degradación elegante y escalonamiento dinámico de modelos según la criticidad de la tarea y SLAs de latencia:
+            </p>
+            <ul class="space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">Nivel 1:</span>
+                <span>Modelos Ultraligeros (Flash / 8B) para clasificación y diffs iniciales.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">Nivel 2:</span>
+                <span>Modelos de Razonamiento Profundo (Pro / Claude 3.5) para refactorizaciones.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">Nivel 3:</span>
+                <span>Fallback local determinista en caso de timeouts o cuotas agotadas.</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Architectural Diagram Card -->
+        <div class="clip-reveal glass-panel p-5 sm:p-10 rounded-2xl sm:rounded-3xl border border-white/10">
+          <div class="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
+            <div class="max-w-xl text-center lg:text-left">
+              <span class="text-[10px] sm:text-xs font-mono text-cyan-400 uppercase tracking-wider">Flujo de Procesamiento Tokenómico</span>
+              <h4 class="text-xl sm:text-2xl font-bold text-white mt-1 mb-2 sm:mb-3">Del Monolito de Código al Grafo Semántico</h4>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Al interponer la capa NextGen entre tu IDE y el LLM, el prompt se transforma de un volcado desordenado de 15,000 tokens en un delta estructurado de apenas 800 tokens, acelerando los tiempos de respuesta a menos de 450 milisegundos.
+              </p>
+            </div>
+            <div class="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-center font-mono text-xs">
+              <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-red-950/40 border border-red-500/30 text-red-300 w-full sm:w-44">
+                <div class="text-[9px] sm:text-[10px] text-red-400 mb-0.5">TRADICIONAL</div>
+                <div class="text-base sm:text-lg font-bold text-white">15,000 tok</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Latencia: ~4.5s</div>
+              </div>
+              <div class="text-cyan-400 font-bold text-base sm:text-lg hidden sm:block">➔</div>
+              <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 w-full sm:w-44">
+                <div class="text-[9px] sm:text-[10px] text-cyan-400 mb-0.5">NEXTGEN T-ZERO</div>
+                <div class="text-base sm:text-lg font-bold text-white">840 tok</div>
+                <div class="text-[10px] text-emerald-400 mt-0.5">Latencia: ~0.45s</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- 4. SECCIÓN: GESTIÓN DE VENTANA DE CONTEXTO                    -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="context-window" class="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-white/5 bg-[#06080d]/60 relative">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="section-header max-w-3xl mb-10 sm:mb-16">
+          <div class="section-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-950/60 border border-violet-500/30 text-[10px] sm:text-xs font-mono text-violet-400 mb-2.5">
+            02 // VENTANA DE CONTEXTO SIN DEGRADACIÓN
+          </div>
+          <h2 class="section-title text-2xl xs:text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Gestión Avanzada de Ventana de Contexto
+          </h2>
+          <p class="section-desc mt-3 text-sm sm:text-lg text-slate-400 leading-relaxed">
+            Cómo solucionar de raíz los mayores obstáculos del co-desarrollo con IA: la dilución de atención, el aplanamiento temporal y las reversiones fantasma.
+          </p>
+        </div>
+
+        <!-- 3 Deep Technical Panels -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-8 mb-10 sm:mb-16">
+
+          <!-- 1. T-Zero AST Pruner -->
+          <div class="interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4 sm:mb-6">
+                <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[10px] sm:text-xs font-mono text-cyan-300">-94.4% TOKENS</span>
+                <span class="text-[10px] sm:text-xs font-mono text-slate-500">Módulo Core</span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">T-Zero AST Pruner</h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+                El algoritmo T-Zero desensambla el código fuente en su Árbol de Sintaxis Abstracta (AST) y poda de forma determinista todo el ruido no operativo:
+              </p>
+              <ul class="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+                <li class="flex items-center gap-2">✓ Eliminación de comentarios obsoletos</li>
+                <li class="flex items-center gap-2">✓ Colapso de cuerpos de métodos privados</li>
+                <li class="flex items-center gap-2">✓ Preservación de firmas y tipados estrictos</li>
+                <li class="flex items-center gap-2">✓ Extracción de contratos de interfaz</li>
+              </ul>
+            </div>
+            <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 font-mono text-[10px] sm:text-[11px] text-cyan-400">
+              Resultado: Atención 100% focalizada en el punto de mutación.
+            </div>
+          </div>
+
+          <!-- 2. Time-Warp Mitigation -->
+          <div class="interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4 sm:mb-6">
+                <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-[10px] sm:text-xs font-mono text-violet-300">ANCLAJE TEMPORAL</span>
+                <span class="text-[10px] sm:text-xs font-mono text-slate-500">Idempotencia</span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Mitigación del "Time-Warp"</h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+                El efecto <em>Time-Warp</em> ocurre cuando el LLM pierde la secuencia temporal de las ediciones a medida que la conversación se alarga:
+              </p>
+              <ul class="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+                <li class="flex items-center gap-2">✓ Snapshots inmutables de estado por turno</li>
+                <li class="flex items-center gap-2">✓ Registro cronológico de mutaciones (WAL)</li>
+                <li class="flex items-center gap-2">✓ Invalidador de contexto retroactivo</li>
+                <li class="flex items-center gap-2">✓ Eliminación de suposiciones anacrónicas</li>
+              </ul>
+            </div>
+            <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 font-mono text-[10px] sm:text-[11px] text-violet-400">
+              Resultado: El agente razona siempre sobre el estado presente.
+            </div>
+          </div>
+
+          <!-- 3. Ghost Reverts Prevention -->
+          <div class="interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4 sm:mb-6">
+                <span class="px-2.5 py-0.5 sm:py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] sm:text-xs font-mono text-emerald-300">INTEGRIDAD SHA-256</span>
+                <span class="text-[10px] sm:text-xs font-mono text-slate-500">Zero Colisión</span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Prevención de "Ghost Reverts"</h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+                Los <em>Ghost Reverts</em> suceden cuando un agente reescribe silenciosamente cambios realizados por otro agente o desarrollador:
+              </p>
+              <ul class="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+                <li class="flex items-center gap-2">✓ Checksums SHA-256 por bloque de código</li>
+                <li class="flex items-center gap-2">✓ Bloqueos optimistas de concurrencia</li>
+                <li class="flex items-center gap-2">✓ Diffs unificados con precondición estricta</li>
+                <li class="flex items-center gap-2">✓ Rechazo automático si el hash base cambia</li>
+              </ul>
+            </div>
+            <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 font-mono text-[10px] sm:text-[11px] text-emerald-400">
+              Resultado: 0.00% de sobreescrituras no deseadas en branches.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive AST Pruner Visualizer & Code Diff (Mobile Fluid) -->
+        <div class="glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <div>
+              <span class="text-[10px] sm:text-xs font-mono text-cyan-400 uppercase tracking-wider">Demostrador en Vivo de Poda Sintáctica</span>
+              <h4 class="text-lg sm:text-xl font-bold text-white mt-0.5">Comparativa: Monolito vs AST Podado</h4>
+            </div>
+            
+            <div class="flex flex-col xs:flex-row items-stretch sm:items-center gap-1.5 sm:gap-2 bg-slate-950/80 p-1 rounded-xl border border-white/10 w-full sm:w-auto">
+              <button id="ast-btn-naive" class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-200 text-slate-400 border border-transparent text-center">
+                Monolítico (14.8k)
+              </button>
+              <button id="ast-btn-pruned" class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-200 bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-center">
+                T-Zero Podado (672 tok)
+              </button>
+            </div>
+          </div>
+
+          <div class="mb-3 sm:mb-4 flex items-center justify-between flex-wrap gap-2">
+            <span id="ast-token-badge" class="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              672 Tokens (-94.4%) • Atención 100% Focalizada
+            </span>
+            <span class="text-[10px] sm:text-xs font-mono text-slate-400">TypeScript / AST Node Graph</span>
+          </div>
+
+          <!-- Code Display Box with smooth touch scrolling -->
+          <div class="relative rounded-xl sm:rounded-2xl bg-black/70 border border-white/10 p-3 sm:p-5 font-mono text-[11px] sm:text-sm text-slate-300 overflow-x-auto max-h-[350px] sm:max-h-[380px] touch-pan-x">
+            <pre class="leading-relaxed"><code id="ast-code-content">// ✅ T-ZERO AST PRUNED SCHEMA (672 TOKENS) -94.4% REDUCTION
+// Solo interfaces declaradas, contratos de tipos y deltas mutacionales necesarios
+export interface PipelineContract {
+  readonly pipelineId: string;
+  readonly schemaVersion: '2.5.0';
+  readonly maxConcurrency: number;
+  execute(delta: SemanticChangeDelta): Promise<ExecutionReceipt>;
+}
+
+export type SemanticChangeDelta = {
+  chunkHash: string; // SHA-256 idempotente contra Ghost Reverts
+  astNodeId: string;
+  operations: Array<'INSERT' | 'REPLACE' | 'DELETE'>;
+};
+
+// Invariante de ejecución verificada por contrato Zod/Pydantic
+export const PipelineGuard = Zod.object({
+  pipelineId: Zod.string().uuid(),
+  delta: Zod.custom<SemanticChangeDelta>()
+});</code></pre>
+          </div>
+
+          <p id="ast-explanation-text" class="mt-3 sm:mt-4 text-[11px] sm:text-xs text-slate-400 font-sans leading-relaxed">
+            T-Zero AST Pruner extrae quirúrgicamente únicamente los contratos de tipos, esquemas invariantes y hashes SHA-256 necesarios. La inferencia responde en 480ms con cero distorsión de atención.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- 5. SECCIÓN: ORQUESTACIÓN DE AGENTES Y PROTOCOLO MCP           -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="agent-orchestration" class="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="section-header max-w-3xl mb-10 sm:mb-16">
+          <div class="section-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-[10px] sm:text-xs font-mono text-emerald-400 mb-2.5">
+            03 // ENJAMBRE DE AGENTES Y MODEL CONTEXT PROTOCOL
+          </div>
+          <h2 class="section-title text-2xl xs:text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Orquestación de Agentes &amp; Protocolo MCP
+          </h2>
+          <p class="section-desc mt-3 text-sm sm:text-lg text-slate-400 leading-relaxed">
+            Cómo conectar agentes de software con herramientas de sistema, bases de datos y linters mediante el estándar abierto Model Context Protocol con seguridad Zero-Leak.
+          </p>
+        </div>
+
+        <!-- 3 Feature Pillars -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-8 mb-10 sm:mb-16">
+
+          <!-- 1. Autonomous Tools & MCP -->
+          <div class="interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4 sm:mb-6">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Herramientas Autónomas &amp; MCP</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+              El protocolo MCP estandariza la exposición de capacidades del sistema a través de interfaces JSON-RPC bidireccionales vía stdio o SSE:
+            </p>
+            <ul class="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+              <li class="flex items-center gap-2">✓ Introspección dinámica de esquemas de tools</li>
+              <li class="flex items-center gap-2">✓ Sandboxing estricto de llamadas de sistema</li>
+              <li class="flex items-center gap-2">✓ Desacoplamiento total del modelo de lenguaje</li>
+            </ul>
+          </div>
+
+          <!-- 2. Zero-Leak Boundary Scanner -->
+          <div class="interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-4 sm:mb-6">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Escaneo Zero-Leak (DLP)</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+              Capa de seguridad perimetral que intercepta todas las peticiones antes de abandonar la infraestructura local:
+            </p>
+            <ul class="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+              <li class="flex items-center gap-2">✓ Detección de claves de API (sk-, JWT, AWS)</li>
+              <li class="flex items-center gap-2">✓ Redacción automática de información personal (PII)</li>
+              <li class="flex items-center gap-2">✓ Bloqueo de contraseñas embebidas en código</li>
+            </ul>
+          </div>
+
+          <!-- 3. Real-Time Telemetry HUD -->
+          <div class="interactive-glow-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-4 sm:mb-6">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Telemetría de Contexto</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3 sm:mb-4">
+              Supervisión continua del estado cognitivo de cada agente involucrado en la tarea:
+            </p>
+            <ul class="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs font-mono text-slate-400">
+              <li class="flex items-center gap-2">✓ Monitorización de consumo de cuota por agente</li>
+              <li class="flex items-center gap-2">✓ Detección de bucles recursivos o atascos</li>
+              <li class="flex items-center gap-2">✓ Latencia media de ejecución por herramienta</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- 6. SECCIÓN: LABORATORIO INTERACTIVO (SIMULADORES EN VIVO)     -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="interactive-lab" class="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-white/5 bg-[#080c14] relative">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="section-header max-w-3xl mb-10 sm:mb-16">
+          <div class="section-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-[10px] sm:text-xs font-mono text-cyan-400 mb-2.5">
+            04 // EXPERIMENTACIÓN PRÁCTICA
+          </div>
+          <h2 class="section-title text-2xl xs:text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Laboratorio de Ingeniería NextGen
+          </h2>
+          <p class="section-desc mt-3 text-sm sm:text-lg text-slate-400 leading-relaxed">
+            Experimenta en tiempo real con nuestra calculadora de tokenómica y nuestro escáner de prevención de fugas Zero-Leak DLP.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+
+          <!-- LAB 1: Interactive Tokenomics Calculator (Responsive Grid) -->
+          <div class="glass-panel p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 sm:mb-4">
+                <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                  <svg class="w-5 h-5 text-cyan-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  <span>Simulador Tokenómico</span>
+                </h3>
+                <span class="text-xs font-mono text-emerald-400 font-semibold" id="calc-savings-pct">-94.4%</span>
+              </div>
+              
+              <p class="text-xs text-slate-300 leading-relaxed mb-5 sm:mb-6">
+                Ajusta el tamaño del módulo de código para calcular el impacto en tokens, costo en dólares y reducción de latencia frente al enfoque tradicional.
+              </p>
+
+              <!-- Slider control -->
+              <div class="mb-5 sm:mb-6">
+                <div class="flex justify-between items-center text-xs font-mono mb-2">
+                  <span class="text-slate-400">Tamaño del Repositorio:</span>
+                  <span id="tokenomics-lines-display" class="text-cyan-400 font-bold">5,000 LOC</span>
+                </div>
+                <input id="tokenomics-slider" type="range" min="500" max="50000" step="500" value="5000" class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                  <span>500 líneas</span>
+                  <span>25k líneas</span>
+                  <span>50k líneas</span>
+                </div>
+              </div>
+
+              <!-- Metric comparison grid (1 col on small phones, 2 on tablet/desktop) -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 font-mono text-xs">
+                <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-red-950/20 border border-red-500/20">
+                  <div class="text-[9px] sm:text-[10px] text-red-400 uppercase tracking-wider mb-0.5">Enfoque Monolítico</div>
+                  <div id="calc-naive-tokens" class="text-base sm:text-lg font-bold text-white mb-0.5">87,500 tokens</div>
+                  <div id="calc-naive-cost" class="text-xs text-red-300">$367.50 USD/mes</div>
+                </div>
+
+                <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-cyan-950/30 border border-cyan-500/30">
+                  <div class="text-[9px] sm:text-[10px] text-cyan-400 uppercase tracking-wider mb-0.5">NextGen T-Zero AST</div>
+                  <div id="calc-nextgen-tokens" class="text-base sm:text-lg font-bold text-white mb-0.5">4,900 tokens</div>
+                  <div id="calc-nextgen-cost" class="text-xs text-emerald-400 font-semibold">$20.58 USD/mes</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 flex items-center justify-between text-[11px] sm:text-xs font-mono text-slate-400">
+              <span>Optimización Latencia:</span>
+              <span id="calc-latency-reduction" class="text-emerald-400 font-semibold">3.2s ➔ 0.42s (-82%)</span>
+            </div>
+          </div>
+
+          <!-- LAB 2: Interactive Zero-Leak Scanner Playground -->
+          <div class="glass-panel p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 sm:mb-4">
+                <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                  <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                  </svg>
+                  <span>Laboratorio DLP Zero-Leak</span>
+                </h3>
+                <span id="zero-leak-status-badge" class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono bg-slate-800 text-slate-400 border border-white/5">
+                  En Espera
+                </span>
+              </div>
+
+              <p class="text-xs text-slate-300 leading-relaxed mb-3 sm:mb-4">
+                Escribe o prueba inyectar credenciales o claves de API en el recuadro. Observa cómo el algoritmo rediseña el payload antes de cualquier transmisión:
+              </p>
+
+              <!-- Quick test buttons -->
+              <div class="flex items-center gap-1.5 sm:gap-2 mb-3 flex-wrap">
+                <button id="btn-test-leak-key" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+                  + API Key
+                </button>
+                <button id="btn-test-leak-jwt" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-mono bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+                  + JWT / Secret
+                </button>
+                <button id="btn-test-leak-clear" class="px-2 py-1 rounded-lg text-[11px] sm:text-xs font-mono text-slate-500 hover:text-slate-300 transition-colors">
+                  Limpiar
+                </button>
+              </div>
+
+              <!-- Input text -->
+              <div class="mb-3 sm:mb-4">
+                <textarea id="zero-leak-input" rows="3" placeholder="Pega aquí código con credenciales (ej. const apiKey = 'sk-1234567890abcdef1234567890');" class="w-full p-2.5 sm:p-3 rounded-xl bg-black/60 border border-white/10 focus:border-cyan-400 text-xs font-mono text-slate-200 placeholder-slate-600 focus:outline-none transition-colors"></textarea>
+              </div>
+
+              <!-- Sanitized Output -->
+              <div>
+                <label class="text-[9px] sm:text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Payload Redactado y Protegido (Zero-Leak Output):</label>
+                <div id="zero-leak-output" class="p-2.5 sm:p-3 rounded-xl bg-black/80 border border-emerald-500/20 font-mono text-[11px] sm:text-xs text-emerald-300 min-h-[58px] sm:min-h-[64px] whitespace-pre-wrap select-text">
+// Esperando payload para escanear en tiempo real...
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-white/5 font-mono text-[10px] sm:text-[11px] text-slate-400">
+              Cumplimiento con SOC2, GDPR e ISO/IEC 42001 (AI Management).
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- 7. SECCIÓN INTERACTIVA: PLAZA DE OPINIÓN Y FEEDBACK          -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="community-plaza" class="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative">
+      <div class="max-w-4xl mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-[10px] sm:text-xs font-mono text-cyan-400 mb-2.5">
+            05 // PLAZA DE LA COMUNIDAD NEXTGEN
+          </div>
+          <h2 class="text-2xl xs:text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Debate de Arquitectura &amp; Feedback
+          </h2>
+          <p class="mt-2.5 text-xs sm:text-base text-slate-400 leading-relaxed px-2">
+            Comparte tus experiencias de optimización, benchmarks de agentes o consultas técnicas con otros ingenieros en sistemas.
+          </p>
+
+          <!-- API Status & Count Badge -->
+          <div class="mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+            <span id="comments-api-status-badge"></span>
+            <span id="comments-counter-badge" class="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-mono bg-white/5 border border-white/10 text-slate-300">
+              3 Aportes
+            </span>
+          </div>
+        </div>
+
+        <!-- Filter Tags -->
+        <div class="flex items-center justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 flex-wrap font-mono text-[11px] sm:text-xs">
+          <button class="comment-filter-btn px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl border bg-cyan-500/20 text-cyan-400 border-cyan-500/40 transition-colors" data-filter="all">
+            Todos
+          </button>
+          <button class="comment-filter-btn px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl border text-slate-400 border-transparent hover:text-white transition-colors" data-filter="Tokenomics">
+            #Tokenomics
+          </button>
+          <button class="comment-filter-btn px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl border text-slate-400 border-transparent hover:text-white transition-colors" data-filter="AST Pruner">
+            #AST Pruner
+          </button>
+          <button class="comment-filter-btn px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl border text-slate-400 border-transparent hover:text-white transition-colors" data-filter="MCP &amp; Agentes">
+            #MCP &amp; Agentes
+          </button>
+        </div>
+
+        <!-- Create Comment Card -->
+        <div class="glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 mb-8 sm:mb-10 shadow-xl">
+          <h3 class="text-base sm:text-lg font-bold text-white mb-1.5">Publicar un Nuevo Aporte Técnico</h3>
+          <p class="text-[11px] sm:text-xs text-slate-400 mb-3 sm:mb-4">Tu mensaje pasará por el filtro Zero-Leak y sanitización XSS antes de persistirse.</p>
+
+          <!-- Authenticated user info badge (if logged in) -->
+          <div id="comment-user-identity-badge" class="mb-3 sm:mb-4 hidden"></div>
+
+          <form id="comment-form" class="space-y-3 sm:space-y-4">
+            
+            <!-- Guest inputs (hidden if logged in) -->
+            <div id="comment-guest-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div>
+                <label class="block text-[11px] sm:text-xs font-mono text-slate-300 mb-1">Nombre o Alias:</label>
+                <input id="comment-author-name" type="text" placeholder="Ej. Carlos Mendoza" maxlength="60" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 focus:border-cyan-400 text-xs text-white placeholder-slate-600 focus:outline-none transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] sm:text-xs font-mono text-slate-300 mb-1">Especialidad / Cargo:</label>
+                <input id="comment-author-role" type="text" placeholder="Ej. DevOps &amp; AI Engineer" maxlength="60" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 focus:border-cyan-400 text-xs text-white placeholder-slate-600 focus:outline-none transition-colors">
+              </div>
+            </div>
+
+            <!-- Section Selector -->
+            <div>
+              <label class="block text-[11px] sm:text-xs font-mono text-slate-300 mb-1">Sección Temática Asociada:</label>
+              <select id="comment-section-select" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 focus:border-cyan-400 text-xs text-white focus:outline-none transition-colors font-mono">
+                <option value="Tokenomics">Tokenomics (Estratificación &amp; Costos)</option>
+                <option value="AST Pruner">AST Pruner (Poda Sintáctica T-Zero)</option>
+                <option value="MCP &amp; Agentes">MCP &amp; Agentes (Protocolo &amp; Integridad)</option>
+              </select>
+            </div>
+
+            <!-- Textarea -->
+            <div>
+              <div class="flex items-center justify-between text-[11px] sm:text-xs font-mono text-slate-400 mb-1">
+                <span>Tu Análisis o Experiencia:</span>
+                <span id="comment-char-counter">0/500</span>
+              </div>
+              <textarea id="comment-text" rows="3" maxlength="500" placeholder="Escribe tu reflexión sobre optimización tokenómica, arquitecturas de agentes o mitigación de colisiones..." class="w-full p-3 rounded-xl bg-black/60 border border-white/10 focus:border-cyan-400 text-xs sm:text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+
+            <div class="flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-2.5 pt-1">
+              <span class="text-[10px] sm:text-[11px] font-mono text-slate-500">Sanitización XSS y anti-spam activos.</span>
+              <button id="btn-submit-comment" type="submit" class="px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-xs bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-all duration-200 shadow-md shadow-cyan-500/20 flex items-center justify-center gap-1.5 disabled:opacity-50">
+                <span>Enviar Aporte</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Comments Feed Container -->
+        <div id="comments-list-container" class="space-y-3.5 sm:space-y-4">
+          <!-- Dynamically populated via comments.js -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-white/10 bg-black/70 py-8 sm:py-12 px-4 sm:px-6 lg:px-8 text-center text-[11px] sm:text-xs font-mono text-slate-400 relative z-20">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-white font-mono">Next<span class="text-cyan-400">Gen</span></span>
+        <span>• Arquitectura de Software &amp; IA v2.5</span>
+      </div>
+      <div>
+        T-Zero AST Pruning • Zero-Leak Protocol • MCP Protocol
+      </div>
+      <div class="text-slate-500 text-[10px] sm:text-[11px]">
+        Persistencia json-server :3000 • Ingeniería en Sistemas
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL DE AUTENTICACIÓN (MOBILE SCROLLABLE) ==================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md opacity-0 hidden transition-opacity duration-300">
+    <div class="modal-content-box relative w-full max-w-md max-h-[92vh] overflow-y-auto p-5 sm:p-8 rounded-2xl sm:rounded-3xl glass-panel-elevated transform scale-95 transition-transform duration-300">
+      
+      <!-- Close button -->
+      <button id="btn-close-modal" aria-label="Cerrar Modal" class="absolute top-4 right-4 sm:top-5 sm:right-5 p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="mb-4 sm:mb-6">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-2.5 sm:mb-3">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Acceso a NextGen</h3>
+        <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Conexión cifrada contra json-server /users con sesión segura.</p>
+      </div>
+
+      <!-- General Alert Box -->
+      <div id="login-general-alert" class="hidden p-2.5 sm:p-3 rounded-xl bg-red-950/60 border border-red-500/30 text-xs text-red-200 mb-3.5 font-mono"></div>
+
+      <!-- Quick Demo Accounts (Touch-friendly buttons) -->
+      <div class="mb-4 sm:mb-5 p-3 rounded-xl sm:rounded-2xl bg-slate-900/80 border border-white/5">
+        <div class="text-[9px] sm:text-[10px] font-mono uppercase text-slate-400 tracking-wider mb-1.5 sm:mb-2">Cuentas Demo en 1-Clic:</div>
+        <div class="flex flex-col gap-1.5 text-xs">
+          <button type="button" class="btn-quick-fill-user text-left px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-cyan-500/10 border border-white/5 hover:border-cyan-500/30 text-slate-300 hover:text-cyan-300 transition-colors flex justify-between items-center" data-email="elena.arch@nextgen.ai">
+            <span class="font-medium">Elena Rostova</span>
+            <span class="text-[9px] sm:text-[10px] font-mono text-cyan-400">Architect</span>
+          </button>
+          <button type="button" class="btn-quick-fill-user text-left px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-cyan-500/10 border border-white/5 hover:border-cyan-500/30 text-slate-300 hover:text-cyan-300 transition-colors flex justify-between items-center" data-email="marcus.token@nextgen.ai">
+            <span class="font-medium">Marcus Vance</span>
+            <span class="text-[9px] sm:text-[10px] font-mono text-cyan-400">Tokenomics</span>
+          </button>
+          <button type="button" class="btn-quick-fill-user text-left px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-cyan-500/10 border border-white/5 hover:border-cyan-500/30 text-slate-300 hover:text-cyan-300 transition-colors flex justify-between items-center" data-email="sofia.dev@nextgen.ai">
+            <span class="font-medium">Sofia Chen</span>
+            <span class="text-[9px] sm:text-[10px] font-mono text-cyan-400">Full-Stack</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="login-form" class="space-y-3 sm:space-y-4">
+        <!-- Email -->
+        <div>
+          <label class="block text-[11px] sm:text-xs font-mono text-slate-300 mb-1">Correo Electrónico:</label>
+          <input id="login-email" type="email" placeholder="usuario@nextgen.ai" required class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-black/60 border border-white/10 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none transition-colors">
+          <div id="login-email-error" class="text-[10px] sm:text-[11px] font-mono text-red-400 mt-1"></div>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-[11px] sm:text-xs font-mono text-slate-300 mb-1">Contraseña:</label>
+          <input id="login-password" type="password" placeholder="Mínimo 8 caracteres (ej. NextGen2026!)" required class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-black/60 border border-white/10 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none transition-colors">
+          
+          <!-- Strength bar -->
+          <div class="w-full bg-slate-800 h-1 rounded mt-1.5 overflow-hidden">
+            <div id="password-strength-bar" class="h-full bg-cyan-400 w-0 transition-all duration-300"></div>
+          </div>
+          <div id="login-password-error" class="text-[10px] sm:text-[11px] font-mono text-red-400 mt-1"></div>
+        </div>
+
+        <button id="btn-login-submit" type="submit" class="w-full mt-2 py-2.5 sm:py-3 rounded-xl font-semibold text-xs sm:text-sm bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 transition-all duration-200 shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 disabled:opacity-50">
+          <svg id="login-spinner" class="hidden w-4 h-4 animate-spin text-slate-950" viewBox="0 0 24 24" fill="none">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          <span id="login-btn-text">Iniciar Sesión en NextGen</span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==================== EXTERNAL SCRIPTS & PLUGINS ==================== -->
+  <!-- GSAP 3 & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- NextGen Modular Architecture Scripts -->
+  <script src="js/security.js"></script>
+  <script src="js/scroll-engine.js"></script>
+  <script src="js/frame-generator.js"></script>
+  <script src="js/canvas-scroller.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/comments.js"></script>
+  <script src="js/telemetry.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+/**
+ * NextGen Architecture Design System & Apple Pro Styling (Ultra-Performance & Mobile Responsive)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #06080d;
+  --bg-secondary: #0c101a;
+  --accent-cyan: #00f0ff;
+  --accent-violet: #8b5cf6;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-hover: rgba(0, 240, 255, 0.3);
+  --glass-bg: rgba(12, 16, 26, 0.7);
+  --glass-blur: blur(16px);
+}
+
+/* Base resets & typography */
+html {
+  background-color: var(--bg-primary);
+  color: #f1f5f9;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 100vw;
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #05070a;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Hardware-Accelerated Glow Backdrops */
+.parallax-orb {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  contain: layout style paint;
+}
+
+.glow-orb-cyan {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(0, 240, 255, 0.03) 45%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  filter: blur(25px);
+  z-index: 0;
+}
+
+.glow-orb-violet {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.03) 45%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  filter: blur(30px);
+  z-index: 0;
+}
+
+/* Interactive Card with Hardware Promotion & Fast Hover */
+.interactive-glow-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.interactive-glow-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(350px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(0, 240, 255, 0.07), transparent 75%);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-glow-card:hover {
+    border-color: rgba(0, 240, 255, 0.35);
+    box-shadow: 0 8px 25px -8px rgba(0, 240, 255, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+/* Sticky Canvas Viewport (Pinning Container with dynamic viewport support) */
+.canvas-sticky-viewport {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  max-width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  z-index: 20;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+#apple-scrub-canvas {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Comment Cards Isolation */
+.comment-card {
+  contain: content;
+  transform: translateZ(0);
+}
+
+/* Gradient Text Shimmer */
+.shimmer-text-cyan {
+  background: linear-gradient(135deg, #ffffff 20%, #00f0ff 60%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.shimmer-text-purple {
+  background: linear-gradient(135deg, #ffffff 20%, #c084fc 60%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.shimmer-text-emerald {
+  background: linear-gradient(135deg, #ffffff 20%, #34d399 60%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Touch Friendly Utilities */
+.touch-pan-x {
+  touch-action: pan-x;
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+  html, body {
+    scroll-behavior: auto !important;
+  }
+  .canvas-sticky-viewport {
+    position: relative !important;
+    height: auto !important;
+    min-height: 480px;
+  }
+  #apple-canvas-container {
+    height: auto !important;
+  }
+  .clip-reveal {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .interactive-glow-card:hover {
+    transform: none !important;
+  }
+}

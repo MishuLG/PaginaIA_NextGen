@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "id": "usr_01",
+      "name": "Elena Rostova",
+      "email": "elena.arch@nextgen.ai",
+      "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+      "role": "Senior AI Systems Architect",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
+      "specialty": "Distributed Agent Swarms & MCP Protocols",
+      "createdAt": "2026-01-10T08:30:00.000Z"
+    },
+    {
+      "id": "usr_02",
+      "name": "Marcus Vance",
+      "email": "marcus.token@nextgen.ai",
+      "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+      "role": "Lead Tokenomics Engineer",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80",
+      "specialty": "AST Pruning & Context Stratification",
+      "createdAt": "2026-02-14T11:15:00.000Z"
+    },
+    {
+      "id": "usr_03",
+      "name": "Sofia Chen",
+      "email": "sofia.dev@nextgen.ai",
+      "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+      "role": "Staff Full-Stack Agentic Dev",
+      "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&q=80",
+      "specialty": "Zero-Leak Protocol & Contracted Schemas",
+      "createdAt": "2026-03-01T14:45:00.000Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "cmt_01",
+      "author": "Elena Rostova",
+      "authorEmail": "elena.arch@nextgen.ai",
+      "role": "Senior AI Systems Architect",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80",
+      "content": "La implementación de la arquitectura 'Fetch-Once / Process Locally' redujo nuestra factura de inferencia en un 73% en el pipeline CI/CD. Al delegar la resolución de tipos y el parsing AST a workers locales, el LLM solo recibe el grafo de impacto semántico en vez de archivos monolíticos.",
+      "sectionTag": "Tokenomics",
+      "likes": 42,
+      "createdAt": "2026-10-12T10:14:00.000Z"
+    },
+    {
+      "id": "cmt_02",
+      "author": "Marcus Vance",
+      "authorEmail": "marcus.token@nextgen.ai",
+      "role": "Lead Tokenomics Engineer",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80",
+      "content": "El T-Zero AST Pruner es revolucionario. Al eliminar comentarios superfluos, decoradores no ejecutables e implementaciones privadas no exportadas, logramos mantener ventanas de atención activas por debajo de 4k tokens incluso en repositorios de más de 300k líneas.",
+      "sectionTag": "AST Pruner",
+      "likes": 29,
+      "createdAt": "2026-10-18T16:22:00.000Z"
+    },
+    {
+      "id": "cmt_03",
+      "author": "Sofia Chen",
+      "authorEmail": "sofia.dev@nextgen.ai",
+      "role": "Staff Full-Stack Agentic Dev",
+      "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&q=80",
+      "content": "Los 'Ghost Reverts' solían ser una pesadilla recurrente cuando dos subagentes intentaban refactorizar dependencias cruzadas. Con hashes SHA-256 por bloque y diffs unificados idempotentes, el porcentaje de colisiones bajó exactamente a 0.00%.",
+      "sectionTag": "MCP & Agentes",
+      "likes": 35,
+      "createdAt": "2026-11-02T09:05:00.000Z"
+    }
+  ]
+}
+
