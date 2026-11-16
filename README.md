@@ -26,7 +26,16 @@ python server/mock_api.py
 ```
 *Este servidor emula de forma idéntica los endpoints REST de `json-server` con soporte completo de CORS y persistencia directa en `db.json`.*
 
-### Opción C: Modo Resiliente / Standalone (Doble Clic Directo)
+### Opción C: Despliegue en Producción en Vercel ⚡
+
+El repositorio cuenta con configuración nativa para Vercel (`vercel.json` y Serverless Functions en `/api`):
+1. Ingresa a [vercel.com](https://vercel.com) e inicia sesión con tu cuenta de GitHub.
+2. Haz clic en **Add New...** ➔ **Project**.
+3. Importa tu repositorio `PaginaIA_NextGen`.
+4. Vercel detectará automáticamente la configuración. Presiona **Deploy**.
+5. ¡Listo! Tu plataforma estará en línea en `https://pagina-ia-nextgen.vercel.app` con el frontend y los endpoints `/api/users` y `/api/comments` funcionando sobre HTTPS.
+
+### Opción D: Modo Resiliente / Standalone (Doble Clic Directo)
 Si abres `index.html` directamente en tu navegador sin ningún servidor activo, el motor de contingencia de NextGen activará automáticamente el **Modo Local Resiliente**, sembrando la sesión y los comentarios a partir de los datos iniciales de `db.json` mediante `localStorage` para que **nada falle** durante tu evaluación visual.
 
 ---

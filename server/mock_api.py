@@ -64,6 +64,8 @@ class NextGenServerHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         path = parsed.path
+        if path.startswith("/api/"):
+            path = path[4:]  # Alias /api/users -> /users, /api/comments -> /comments
         db = load_db()
 
         # 1. REST Endpoint: /users
@@ -145,6 +147,8 @@ class NextGenServerHandler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
         parsed = urlparse(self.path)
         path = parsed.path
+        if path.startswith("/api/"):
+            path = path[4:]
         db = load_db()
 
         content_length = int(self.headers.get("Content-Length", 0))
@@ -182,6 +186,8 @@ class NextGenServerHandler(http.server.BaseHTTPRequestHandler):
     def do_PATCH(self):
         parsed = urlparse(self.path)
         path = parsed.path
+        if path.startswith("/api/"):
+            path = path[4:]
         db = load_db()
 
         content_length = int(self.headers.get("Content-Length", 0))

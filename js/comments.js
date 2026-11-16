@@ -10,9 +10,17 @@
 const NextGenComments = (function () {
   'use strict';
 
-  const API_COMMENTS_URL = 'http://localhost:3000/comments';
   const LOCAL_STORAGE_COMMENTS_KEY = 'nextgen_comments_cache_v2';
   const MAX_COMMENT_LENGTH = 500;
+
+  // Resolutor inteligente de endpoint: funciona en local (localhost:3000) y en producción en Vercel
+  function getApiCommentsUrl() {
+    const isLocal = window.location.protocol === 'http:' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    if (isLocal) {
+      return window.location.port === '3000' ? '/comments' : 'http://localhost:3000/comments';
+    }
+    return '/api/comments';
+  }
 
   // Initial seed comments matching db.json
   const SEED_COMMENTS = [
@@ -89,7 +97,7 @@ const NextGenComments = (function () {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2000);
-      const res = await fetch(API_COMMENTS_URL, { signal: controller.signal });
+      const res = await fetch(getApiCommentsUrl(), { signal: controller.signal });
       clearTimeout(timeoutId);
 
       if (res.ok) {
@@ -98,7 +106,9 @@ const NextGenComments = (function () {
         // Cache in localStorage
         localStorage.setItem(LOCAL_STORAGE_COMMENTS_KEY, JSON.stringify(commentsList));
         if (statusBadge) {
-          statusBadge.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> REST json-server (Puerto 3000) Conectado</span>`;
+          const isVercel = window.location.hostname.includes('vercel.app') || (!window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1'));
+          const label = isVercel ? 'Vercel Serverless API Conectada' : 'REST API (:3000) Conectada';
+          statusBadge.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> ${label}</span>`;
         }
       } else {
         throw new Error('API server returned error');
@@ -218,7 +228,7 @@ const NextGenComments = (function () {
     // Try PATCH to backend
     if (isApiOnline) {
       try {
-        await fetch(`${API_COMMENTS_URL}/${commentId}`, {
+        await fetch(`${getApiCommentsUrl()}/${commentId}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ likes: comment.likes })
@@ -275,7 +285,7 @@ const NextGenComments = (function () {
 
     try {
       if (isApiOnline) {
-        const res = await fetch(API_COMMENTS_URL, {
+        const res = await fetch(getApiCommentsUrl(), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newComment)

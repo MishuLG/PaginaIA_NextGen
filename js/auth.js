@@ -9,8 +9,16 @@
 const NextGenAuth = (function () {
   'use strict';
 
-  const API_USERS_URL = 'http://localhost:3000/users';
   const SESSION_STORAGE_KEY = 'nextgen_auth_session_v2';
+
+  // Resolutor inteligente de endpoint: funciona en local (localhost:3000) y en producción en Vercel
+  function getApiUsersUrl() {
+    const isLocal = window.location.protocol === 'http:' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    if (isLocal) {
+      return window.location.port === '3000' ? '/users' : 'http://localhost:3000/users';
+    }
+    return '/api/users';
+  }
   
   // Default mock users matching db.json for resilient offline/standalone fallback
   const SEED_USERS = [
@@ -144,7 +152,7 @@ const NextGenAuth = (function () {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2000);
-      const res = await fetch(API_USERS_URL, { signal: controller.signal });
+      const res = await fetch(getApiUsersUrl(), { signal: controller.signal });
       clearTimeout(timeoutId);
       
       if (res.ok) {
